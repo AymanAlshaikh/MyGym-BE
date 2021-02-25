@@ -21,7 +21,7 @@ router.param("gymId", async (req, res, next, gymId) => {
 });
 
 router.get("/", gymList);
-router.post("/", newGym);
+router.post("/", passport.authenticate("jwt", { session: false }), newGym);
 router.post("/:gymId/type", newType);
 router.delete("/:gymId", removeGym);
 

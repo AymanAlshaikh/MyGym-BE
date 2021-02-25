@@ -38,3 +38,13 @@ exports.removeClass = async (req, res, next) => {
     next(error);
   }
 };
+
+// exports.newType = async (req, res, next) => {
+//   try {
+//     const newType = await Type.create(req.body);
+//     res.json(newType);
+//     res.status(201);
+//   } catch (error) {
+//     next(error);
+//   }
+// };

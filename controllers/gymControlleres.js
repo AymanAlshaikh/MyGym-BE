@@ -1,4 +1,4 @@
-const { Gym, Type } = require("../db/models");
+const { Gym, Class, Type } = require("../db/models");
 
 exports.fetchGym = async (gymId, next) => {
   try {
@@ -21,9 +21,14 @@ exports.gymList = async (req, res, next) => {
 
 exports.newGym = async (req, res, next) => {
   try {
-    const newGym = await Gym.create(req.body);
-    res.json(newGym);
-    res.status(201);
+    if (req.user.id === 1) {
+      const newGym = await Gym.create(req.body);
+      res.json(newGym);
+      res.status(201);
+    } else {
+      const error = new Error("you are not admin").status(401);
+      next(error);
+    }
   } catch (error) {
     next(error);
   }
@@ -49,3 +54,15 @@ exports.newType = async (req, res, next) => {
     next(error);
   }
 };
+
+// exports.newClass = async (req, res, next) => {
+//   try {
+//     req.body.type = req.whatever.name;
+//     req.body.gymId = req.whatever.id;
+//     const newClass = await Class.create(req.body);
+//     res.json(newClass);
+//     res.status(201);
+//   } catch (error) {
+//     next(error);
+//   }
+// };
